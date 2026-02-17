@@ -1,0 +1,46 @@
+name: Glue Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Download Code
+      uses: actions/checkout@v3
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Packages
+      run: pip install pytest awscli
+
+    - name: Run Tests
+      run: pytest
+
+    - name: Login to AWS
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Upload Script to S3
+      run: aws s3 sync glue_scripts/ s3://YOUR-SCRIPT-BUCKET/
+
+    - name: Update Glue Job
+      run: |
+        aws glue update-job \
+        --job-name demo-glue-job \
+        --job-update "{
+          \"Command\": {
+            \"Name\": \"glueetl\",
+            \"ScriptLocation\": \"s3://YOUR-SCRIPT-BUCKET/etl_job.py\"
+          }
+        }"

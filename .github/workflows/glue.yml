@@ -32,7 +32,7 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Upload Script to S3
-      run: aws s3 sync glue_scripts/ s3://YOUR-SCRIPT-BUCKET/
+      run: aws s3 sync glue_scripts/ s3://glue-scripts-omkar/
 
     - name: Update Glue Job
       run: |

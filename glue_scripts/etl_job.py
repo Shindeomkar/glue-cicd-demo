@@ -3,7 +3,7 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("DemoJob").getOrCreate()
 
 # Read CSV from S3
-df = spark.read.csv("s3://YOUR-INPUT-BUCKET/data/", header=True)
+df = spark.read.csv("s3://input-data-omkar/data/", header=True)
 
 # Remove empty rows
 clean_df = df.dropna()

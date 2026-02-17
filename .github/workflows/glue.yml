@@ -41,6 +41,6 @@ jobs:
         --job-update "{
           \"Command\": {
             \"Name\": \"glueetl\",
-            \"ScriptLocation\": \"s3://YOUR-SCRIPT-BUCKET/etl_job.py\"
+            \"ScriptLocation\": \"s3://omkar-glue-scripts-2026/etl_job.py\"
           }
         }"

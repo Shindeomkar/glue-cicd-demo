@@ -10,7 +10,7 @@ clean_df = df.dropna()
 
 # Save output
 clean_df.write.mode("overwrite").parquet(
-    "s3://YOUR-OUTPUT-BUCKET/output/"
+    "s3://output-data-omkar/output/"
 )
 
 print("Done")

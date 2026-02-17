@@ -39,6 +39,9 @@ jobs:
           --job-name demo-glue-job \
           --job-update "{
             \"Role\": \"arn:aws:iam::219826711046:role/AWSGlueServiceRole\",
+            \"GlueVersion\": \"4.0\",
+            \"WorkerType\": \"G.1X\",
+            \"NumberOfWorkers\": 2,
             \"Command\": {
               \"Name\": \"glueetl\",
               \"ScriptLocation\": \"s3://omkar-glue-scripts-2026/etl_job.py\"

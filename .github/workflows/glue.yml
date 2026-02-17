@@ -33,14 +33,14 @@ jobs:
 
     - name: Upload Script to S3
       run: aws s3 sync glue_scripts/ s3://glue-scripts-omkar/
-
     - name: Update Glue Job
       run: |
         aws glue update-job \
-        --job-name demo-glue-job \
-        --job-update "{
-          \"Command\": {
-            \"Name\": \"glueetl\",
-            \"ScriptLocation\": \"s3://omkar-glue-scripts-2026/etl_job.py\"
-          }
-        }"
+          --job-name demo-glue-job \
+          --job-update "{
+            \"Role\": \"arn:aws:iam::219826711046:role/AWSGlueServiceRole\",
+            \"Command\": {
+              \"Name\": \"glueetl\",
+              \"ScriptLocation\": \"s3://omkar-glue-scripts-2026/etl_job.py\"
+            }
+          }"
